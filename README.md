@@ -13,7 +13,9 @@
 
 # Usage
 
-Add two `=== GH HISTORY FENCE ===` lines into your PR description. The commit history will be place between the two fences.
+## Command line
+
+Add two `=== GH HISTORY FENCE ===` lines into your PR description. The commit history will be place between the two fences when you run `gh ph`.
 
 For example,
 
@@ -27,6 +29,24 @@ Super duper fantastic feature.
 <!-- === GH HISTORY FENCE === -->
 
 <!-- === GH HISTORY FENCE === -->
+```
+
+## GitHub Actions
+
+Add the fences to your pull request templates, then set up a job as below:
+
+```yaml
+jobs:
+  gh-ph:
+    name: Add commit history to pull request description
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: Frederick888/gh-ph@v1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 # Configuration
