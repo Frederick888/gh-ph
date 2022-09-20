@@ -14,3 +14,10 @@ jobs:
       - uses: Frederick888/gh-ph@master
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  shellcheck:
+    name: Shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
