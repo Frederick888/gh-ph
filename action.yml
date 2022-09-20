@@ -1,4 +1,4 @@
-name: "gh-ph"
+name: "PR history in description"
 description: "Add pull request commit history to description"
 inputs:
   fence:
