@@ -4,6 +4,7 @@ set -e
 
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
+: "${GH_PH_PAGER:="bat"}"
 
 function is_vim() {
     local gh_ppid
@@ -38,11 +39,22 @@ function inject_history() {
     done
 }
 
+function pager() {
+    case "$GH_PH_PAGER" in
+        bat)
+            bat -l markdown
+            ;;
+        *)
+            sh -c "$GH_PH_PAGER"
+            ;;
+    esac
+}
+
 PR_DETAILS="$(gh pr view --json baseRefName,body)"
 PR_BASE="$(jq -r '.baseRefName' <<<"$PR_DETAILS")"
 PR_BODY="$(jq -r '.body' <<<"$PR_DETAILS")"
 
-inject_history "$PR_BASE" <<<"$PR_BODY" | bat -lmarkdown
+inject_history "$PR_BASE" <<<"$PR_BODY" | pager
 
 if read -r -n1 -p 'Update pull request body? [y/n] '; then
     printf '\n'
