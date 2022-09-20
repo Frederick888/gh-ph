@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -e
+
+: "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
+: "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
+
+function is_vim() {
+    local gh_ppid
+    gh_ppid="$(ps -o ppid= $PPID)"
+    [[ "$(ps -o comm= "$gh_ppid")" =~ ^n?vim$ ]]
+}
+
+function render_changes() {
+    local target_branch="$1"
+    git log --reverse --format="$GH_PH_HISTORY_FORMAT" "$target_branch..."
+}
+
+function inject_history() {
+    local target_branch="$1"
+
+    local line
+    local rendering=0
+    while read -r line; do
+        if [[ "$line" != *"$GH_PH_HISTORY_FENCE"* ]]; then
+            if [[ "$rendering" -eq 0 ]]; then
+                printf '%s\n' "$line"
+            fi
+            continue
+        fi
+        printf '%s\n' "$line"
+        if [[ "$rendering" -eq 1 ]]; then
+            rendering=0
+        else
+            rendering=1
+            render_changes "$target_branch"
+        fi
+    done
+}
+
+PR_DETAILS="$(gh pr view --json baseRefName,body)"
+PR_BASE="$(jq -r '.baseRefName' <<<"$PR_DETAILS")"
+PR_BODY="$(jq -r '.body' <<<"$PR_DETAILS")"
+
+inject_history "$PR_BASE" <<<"$PR_BODY" | bat -lmarkdown
+
+if read -r -n1 -p 'Update pull request body? [y/n] '; then
+    printf '\n'
+    if [[ "$REPLY" == 'y' ]]; then
+        inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit --body-file -
+    else
+        printf 'Aborted\n'
+    fi
+elif is_vim; then
+    printf '\nVim detected\n'
+    inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit --body-file -
+fi
