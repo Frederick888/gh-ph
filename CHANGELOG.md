@@ -1,3 +1,13 @@
+<a name="v1.0.1"></a>
+## v1.0.1 (2022-09-20)
+
+
+#### Bug Fixes
+
+*   Fix using major version tag in GitHub Actions ([84e96573](84e96573))
+
+
+
 <a name="v1.0.0"></a>
 ## v1.0.0 (2022-09-20)
 
