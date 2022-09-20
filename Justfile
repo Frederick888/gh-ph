@@ -11,5 +11,6 @@ release version:
     git diff --exit-code
     git commit -m 'chore: Bump version to {{version}}'
     git tag v{{version}}
+    git tag -d "v$(printf '{{version}}' | cut -d '.' -f 1)"
 
 # vim: set filetype=just :

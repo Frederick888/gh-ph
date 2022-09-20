@@ -40,3 +40,14 @@ jobs:
           prerelease: ${{ steps.release_type.outputs.is_pre }}
           body: ${{ env.CHANGELOG }}
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update major version tag
+        if: ${{ steps.release_type.outputs.is_pre == 'false' }}
+        shell: bash
+        run: |
+          major_tag="$(printf '%s' "$GITHUB_REF_NAME" | cut -d '.' -f 1)"
+          if git show "$major_tag" 2>&1 >/dev/null; then
+            git push origin --delete "$major_tag"
+            git tag -d "$major_tag"
+          fi
+          git tag "$major_version"
+          git push --tags
