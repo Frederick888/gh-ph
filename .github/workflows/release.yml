@@ -49,5 +49,5 @@ jobs:
             git push origin --delete "$major_tag"
             git tag -d "$major_tag"
           fi
-          git tag "$major_version"
+          git tag "$major_tag"
           git push --tags
