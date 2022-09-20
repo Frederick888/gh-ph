@@ -15,7 +15,7 @@
 
 ## Command line
 
-Add two `=== GH HISTORY FENCE ===` lines into your PR description. The commit history will be place between the two fences when you run `gh ph`.
+Add two `=== GH HISTORY FENCE ===` lines into your PR description. The commit history will be placed between the two fences when you run `gh ph`.
 
 For example,
 
