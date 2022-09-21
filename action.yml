@@ -2,18 +2,22 @@ name: "PR history in description"
 description: "Add pull request commit history to description"
 inputs:
   fence:
-    description: Marker fences in pull request bodies
+    description: Marker fences for commit history positions in pull request bodies
     required: false
     default: "=== GH HISTORY FENCE ==="
   format:
     description: git-log format
     required: false
     default: "### %H %s%n%n%b%n"
+  format_fence:
+    description: Marker fences for git-log format strings in pull request bodies
+    required: false
+    default: "=== GH HISTORY FORMAT FENCE ==="
 runs:
   using: "composite"
   steps:
     - run: |
         git checkout "$GITHUB_BASE_REF"
         git checkout "$GITHUB_HEAD_REF"
-        printf 'y' | GH_PH_PAGER='cat' GH_PH_HISTORY_FENCE='${{ inputs.fence }}' GH_PH_HISTORY_FORMAT='${{ inputs.format }}' $GITHUB_ACTION_PATH/gh-ph
+        printf 'y' | GH_PH_PAGER='cat' GH_PH_HISTORY_FENCE='${{ inputs.fence }}' GH_PH_HISTORY_FORMAT='${{ inputs.format }}' GH_PH_HISTORY_FORMAT_FENCE='${{ inputs.format_fence }}' $GITHUB_ACTION_PATH/gh-ph
       shell: bash

@@ -4,6 +4,7 @@ set -e
 
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
+: "${GH_PH_HISTORY_FORMAT_FENCE:="=== GH HISTORY FORMAT FENCE ==="}"
 : "${GH_PH_PAGER:="bat"}"
 
 function is_vim() {
@@ -22,20 +23,34 @@ function inject_history() {
 
     local line
     local rendering=0
+    local updating_format=0
     while read -r line; do
-        if [[ "$line" != *"$GH_PH_HISTORY_FENCE"* ]]; then
-            if [[ "$rendering" -eq 0 ]]; then
-                printf '%s\n' "$line"
-            fi
+        if [[ "$rendering" -eq 1 ]] && [[ "$line" != *"$GH_PH_HISTORY_FENCE"* ]]; then
+            # Placing format fences inside history fences is not allowed
             continue
         fi
-        printf '%s\n' "$line"
-        if [[ "$rendering" -eq 1 ]]; then
-            rendering=0
-        else
-            rendering=1
-            render_changes "$target_branch"
+        if [[ "$updating_format" -eq 1 ]] && [[ "$line" != *"$GH_PH_HISTORY_FORMAT_FENCE"* ]]; then
+            # All lines are join together. Use %n for line breaks
+            GH_PH_HISTORY_FORMAT+="$line"
+            printf '%s\n' "$line"
+            continue
         fi
+
+        printf '%s\n' "$line"
+        case "$line" in
+            *"$GH_PH_HISTORY_FENCE"*)
+                rendering=$(( 1 - rendering ))
+                if [[ "$rendering" -eq 1 ]]; then
+                    render_changes "$target_branch"
+                fi
+                ;;
+            *"$GH_PH_HISTORY_FORMAT_FENCE"*)
+                updating_format=$(( 1 - updating_format ))
+                if [[ "$updating_format" -eq 1 ]]; then
+                    GH_PH_HISTORY_FORMAT=''
+                fi
+                ;;
+        esac
     done
 }
 
