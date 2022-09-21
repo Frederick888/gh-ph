@@ -51,9 +51,9 @@ jobs:
 
 # Configuration
 
-History format can be configured via environment variable `GH_PH_HISTORY_FORMAT`.
+Default history format can be configured via environment variable `GH_PH_HISTORY_FORMAT`.
 
-Format can also be changed using inline format fences. For example,
+Per template/section formats can be configured using inline format fences. For example,
 
 ```markdown
 # Overview
