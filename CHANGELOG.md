@@ -24,7 +24,7 @@
 
 #### Bug Fixes
 
-*   Fix using major version tag in GitHub Actions ([84e96573](84e96573))
+*   Fix using major version tag in GitHub Actions ([84e96573](https://github.com/Frederick888/gh-ph/commit/84e96573dcf11309ea2db1ac3235b76ca922e0ff))
 
 
 
@@ -34,12 +34,12 @@
 
 #### Features
 
-*   Allow using in GitHub Actions ([fcfe9a93](fcfe9a93))
-*   Initial version ([f3e189d0](f3e189d0))
+*   Allow using in GitHub Actions ([fcfe9a93](https://github.com/Frederick888/gh-ph/commit/fcfe9a93e02057f5449be47917b5cdd44425d78c))
+*   Initial version ([f3e189d0](https://github.com/Frederick888/gh-ph/commit/f3e189d01089d264bf3720240a966b131ba19f79))
 
 #### Bug Fixes
 
-*   Update GitHub Action name ([0105c9f3](0105c9f3))
+*   Update GitHub Action name ([0105c9f3](https://github.com/Frederick888/gh-ph/commit/0105c9f3e8454dda6dbeeb032ba6e7aec437ec7f))
 
 
 
