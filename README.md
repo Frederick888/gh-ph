@@ -52,3 +52,21 @@ jobs:
 # Configuration
 
 History format can be configured via environment variable `GH_PH_HISTORY_FORMAT`.
+
+Format can also be changed using inline format fences. For example,
+
+```markdown
+# Overview
+<!-- === GH HISTORY FORMAT FENCE === --> <!--
+- %s
+--> <!-- === GH HISTORY FORMAT FENCE === -->
+<!-- === GH HISTORY FENCE === -->
+<!-- === GH HISTORY FENCE === -->
+
+# Details
+<!-- === GH HISTORY FORMAT FENCE === --> <!--
+### %H %s%n%n%b%n
+--> <!-- === GH HISTORY FORMAT FENCE === -->
+<!-- === GH HISTORY FENCE === -->
+<!-- === GH HISTORY FENCE === -->
+```
