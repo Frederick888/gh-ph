@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+set -o pipefail
 
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
