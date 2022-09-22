@@ -1,3 +1,13 @@
+<a name="v1.1.1"></a>
+## v1.1.1 (2022-09-22)
+
+
+#### Bug Fixes
+
+*   Remove spaces from PID in Vim detection ([377d7d16](https://github.com/Frederick888/gh-ph/commit/377d7d163ee3a238c9371355fc5103d6babb164a))
+
+
+
 <a name="v1.1.0"></a>
 ## v1.1.0 (2022-09-21)
 
