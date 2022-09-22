@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+set -o pipefail
 
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
@@ -9,7 +10,7 @@ set -e
 
 function is_vim() {
     local gh_ppid
-    gh_ppid="$(ps -o ppid= $PPID)"
+    gh_ppid="$(ps -o ppid= $PPID | tr -d ' ')"
     [[ "$(ps -o comm= "$gh_ppid")" =~ ^n?vim$ ]]
 }
 
