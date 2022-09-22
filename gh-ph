@@ -6,6 +6,7 @@ set -o pipefail
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
 : "${GH_PH_HISTORY_FORMAT_FENCE:="=== GH HISTORY FORMAT FENCE ==="}"
+: "${GH_PH_HISTORY_FORMAT_GH_TEMPLATE:="1"}"
 : "${GH_PH_PAGER:="bat"}"
 
 function is_vim() {
@@ -14,9 +15,24 @@ function is_vim() {
     [[ "$(ps -o comm= "$gh_ppid")" =~ ^n?vim$ ]]
 }
 
+function gh_template() {
+    local format="$1"
+    local fields
+    fields="$(gh pr view --json |& tail -n+2 | tr -d ' ' | paste -d, -s)"
+    gh pr view --json "$fields" --template "$format"
+}
+
+function git_log_format() {
+    if [[ -z "$GH_PH_HISTORY_FORMAT_GH_TEMPLATE" ]] || [[ "$GH_PH_HISTORY_FORMAT_GH_TEMPLATE" -eq 0 ]]; then
+        printf '%s' "$GH_PH_HISTORY_FORMAT"
+    else
+        printf '%s' "$(gh_template "$GH_PH_HISTORY_FORMAT")"
+    fi
+}
+
 function render_changes() {
     local target_branch="$1"
-    git log --reverse --format="$GH_PH_HISTORY_FORMAT" "$target_branch.."
+    git log --reverse --format="$(git_log_format)" "$target_branch.."
 }
 
 function inject_history() {

@@ -13,6 +13,10 @@ inputs:
     description: Marker fences for git-log format strings in pull request bodies
     required: false
     default: "=== GH HISTORY FORMAT FENCE ==="
+  gh_template:
+    description: Preprocess git-log format using gh Go template
+    required: false
+    default: "1"
 runs:
   using: "composite"
   steps:
@@ -24,5 +28,6 @@ runs:
           GH_PH_HISTORY_FENCE='${{ inputs.fence }}' \
           GH_PH_HISTORY_FORMAT='${{ inputs.format }}' \
           GH_PH_HISTORY_FORMAT_FENCE='${{ inputs.format_fence }}' \
+          GH_PH_HISTORY_FORMAT_GH_TEMPLATE='${{ inputs.gh_template }}' \
           $GITHUB_ACTION_PATH/gh-ph
       shell: bash
