@@ -1,3 +1,13 @@
+<a name="v1.2.0"></a>
+## v1.2.0 (2022-09-22)
+
+
+#### Features
+
+*   Preprocess git-log format with gh template ([324f8e6e](https://github.com/Frederick888/gh-ph/commit/324f8e6eb679f795e12d84c29c10df4e12a09394))
+
+
+
 <a name="v1.1.1"></a>
 ## v1.1.1 (2022-09-22)
 
