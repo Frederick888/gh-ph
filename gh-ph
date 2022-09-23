@@ -3,6 +3,11 @@
 set -e
 set -o pipefail
 
+: "${GH_PH_DEBUG:="0"}"
+if [[ "$GH_PH_DEBUG" -ne 0 ]]; then
+    set -x
+fi
+
 : "${GH_PH_HISTORY_FENCE:="=== GH HISTORY FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT:="### %H %s%n%n%b%n"}"
 : "${GH_PH_HISTORY_FORMAT_FENCE:="=== GH HISTORY FORMAT FENCE ==="}"

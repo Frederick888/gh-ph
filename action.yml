@@ -17,6 +17,10 @@ inputs:
     description: Preprocess git-log format using gh Go template
     required: false
     default: "1"
+  debug:
+    description: Enable debugging mode
+    required: false
+    default: "0"
 runs:
   using: "composite"
   steps:
@@ -25,6 +29,7 @@ runs:
         git checkout "$GITHUB_HEAD_REF"
         printf 'y' | \
           GH_PH_PAGER='cat' \
+          GH_PH_DEBUG='${{ inputs.debug }}' \
           GH_PH_HISTORY_FENCE='${{ inputs.fence }}' \
           GH_PH_HISTORY_FORMAT='${{ inputs.format }}' \
           GH_PH_HISTORY_FORMAT_FENCE='${{ inputs.format_fence }}' \
