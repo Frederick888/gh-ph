@@ -1,6 +1,6 @@
 # GitHub PR History
 
-`gh-ph` is a [`gh`](https://github.com/cli/cli) extension that puts commit history into your pull request description.
+`gh-ph` is a [`gh`](https://github.com/cli/cli) extension and a GitHub Action that puts commit history into your pull request description.
 
 # Install
 
@@ -51,7 +51,7 @@ jobs:
 
 # Configuration
 
-Default history format can be configured via environment variable `GH_PH_HISTORY_FORMAT`.
+Default history format can be configured via environment variable [`GH_PH_HISTORY_FORMAT`](https://github.com/Frederick888/gh-ph/blob/1a9fe6f74a6067559885246a67f1d1df9366252c/gh-ph#L12) ([`with.format`](https://github.com/Frederick888/gh-ph/blob/1a9fe6f74a6067559885246a67f1d1df9366252c/action.yml#L8-L11) in Actions).
 
 Per template/section formats can be configured using inline format fences. For example,
 
