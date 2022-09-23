@@ -9,6 +9,8 @@ set -o pipefail
 : "${GH_PH_HISTORY_FORMAT_GH_TEMPLATE:="1"}"
 : "${GH_PH_PAGER:="bat"}"
 
+GH_TEMPLATE_CACHE=""
+
 function is_vim() {
     local gh_ppid
     gh_ppid="$(ps -o ppid= $PPID | tr -d ' ')"
@@ -17,9 +19,12 @@ function is_vim() {
 
 function gh_template() {
     local format="$1"
-    local fields
-    fields="$(gh pr view --json |& tail -n+2 | tr -d ' ' | paste -d, -s)"
-    gh pr view --json "$fields" --template "$format"
+    if [[ -z "$GH_TEMPLATE_CACHE" ]]; then
+        local fields
+        fields="$(gh pr view --json |& tail -n+2 | tr -d ' ' | paste -d, -s)"
+        GH_TEMPLATE_CACHE="$(gh pr view --json "$fields" --template "$format")"
+    fi
+    printf '%s' "$GH_TEMPLATE_CACHE"
 }
 
 function git_log_format() {
@@ -65,6 +70,7 @@ function inject_history() {
                 updating_format=$(( 1 - updating_format ))
                 if [[ "$updating_format" -eq 1 ]]; then
                     GH_PH_HISTORY_FORMAT=''
+                    GH_TEMPLATE_CACHE=''
                 fi
                 ;;
         esac
