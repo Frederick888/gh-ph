@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
-set -o pipefail
+set -eo pipefail
 
 : "${GH_PH_DEBUG:="0"}"
 if [[ "$GH_PH_DEBUG" -ne 0 ]]; then
@@ -26,8 +25,8 @@ function gh_template() {
     local format="$1"
     if [[ -z "$GH_TEMPLATE_CACHE" ]]; then
         local fields
-        fields="$(gh pr view --json 2>&1 | tail -n+2 | tr -d ' ' | paste -d, -s -)"
-        GH_TEMPLATE_CACHE="$(gh pr view --json "$fields" --template "$format")"
+        fields="$(set -eo pipefail; (gh pr view --json 2>&1 || true) | tail -n+2 | tr -d ' ' | paste -d, -s -)"
+        GH_TEMPLATE_CACHE="$(set -eo pipefail; gh pr view --json "$fields" --template "$format")"
     fi
     printf '%s' "$GH_TEMPLATE_CACHE"
 }
@@ -36,13 +35,17 @@ function git_log_format() {
     if [[ -z "$GH_PH_HISTORY_FORMAT_GH_TEMPLATE" ]] || [[ "$GH_PH_HISTORY_FORMAT_GH_TEMPLATE" -eq 0 ]]; then
         printf '%s' "$GH_PH_HISTORY_FORMAT"
     else
-        printf '%s' "$(gh_template "$GH_PH_HISTORY_FORMAT")"
+        local gh_processed_format
+        gh_processed_format="$(set -eo pipefail; gh_template "$GH_PH_HISTORY_FORMAT")"
+        printf '%s' "$gh_processed_format"
     fi
 }
 
 function render_changes() {
     local target_branch="$1"
-    git log --reverse --format="$(git_log_format)" "$target_branch.."
+    local final_log_format
+    final_log_format="$(set -eo pipefail; git_log_format)"
+    git log --reverse --format="$final_log_format" "$target_branch.."
 }
 
 function inject_history() {
@@ -93,9 +96,9 @@ function pager() {
     esac
 }
 
-PR_DETAILS="$(gh pr view --json baseRefName,body)"
-PR_BASE="$(jq -r '.baseRefName' <<<"$PR_DETAILS")"
-PR_BODY="$(jq -r '.body' <<<"$PR_DETAILS")"
+PR_DETAILS="$(set -eo pipefail; gh pr view --json baseRefName,body)"
+PR_BASE="$(set -eo pipefail; jq -r '.baseRefName' <<<"$PR_DETAILS")"
+PR_BODY="$(set -eo pipefail; jq -r '.body' <<<"$PR_DETAILS")"
 
 inject_history "$PR_BASE" <<<"$PR_BODY" | pager
 
