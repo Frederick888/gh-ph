@@ -1,3 +1,15 @@
+<a name="v1.3.1"></a>
+## v1.3.1 (2022-09-26)
+
+
+#### Bug Fixes
+
+*   Avoid silent failures in subshells ([a0100bf4](https://github.com/Frederick888/gh-ph/commit/a0100bf4656ee7bcb8e6dddb62cd4ba06cf20def))
+*   macOS paste command requires hyphon for stdin ([cfe487be](https://github.com/Frederick888/gh-ph/commit/cfe487bef831827a8b69d3640640bea8776f6df0))
+*   Replace |& with 2>&1 | for macOS compatibility ([98b063e9](https://github.com/Frederick888/gh-ph/commit/98b063e94f50cbd8eba8c008e9ed1e8ccb20f003))
+
+
+
 <a name="v1.3.0"></a>
 ## v1.3.0 (2022-09-23)
 
