@@ -26,7 +26,7 @@ function gh_template() {
     local format="$1"
     if [[ -z "$GH_TEMPLATE_CACHE" ]]; then
         local fields
-        fields="$(gh pr view --json 2>&1 | tail -n+2 | tr -d ' ' | paste -d, -s)"
+        fields="$(gh pr view --json 2>&1 | tail -n+2 | tr -d ' ' | paste -d, -s -)"
         GH_TEMPLATE_CACHE="$(gh pr view --json "$fields" --template "$format")"
     fi
     printf '%s' "$GH_TEMPLATE_CACHE"
