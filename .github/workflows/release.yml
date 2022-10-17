@@ -35,9 +35,8 @@ jobs:
         id: release_type
         shell: bash
         run: |
-          is_pre='false'
-          [[ "$GITHUB_REF_NAME" == *"-"* ]] && is_pre='true'
-          printf '::set-output name=is_pre::%s\n' "$is_pre"
+          [[ "$GITHUB_REF_NAME" == *"-"* ]] && is_pre='true' || is_pre='false'
+          printf '%s=%s\n' 'is_pre' "$is_pre" >> $GITHUB_OUTPUT
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
