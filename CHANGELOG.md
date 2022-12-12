@@ -1,3 +1,13 @@
+<a name="v1.3.2"></a>
+## v1.3.2 (2022-12-12)
+
+
+#### Bug Fixes
+
+*   Retain leading & trailing spaces ([0f44d6f4](https://github.com/Frederick888/gh-ph/commit/0f44d6f495c8b5cda12faacaadc4f56ca7163170))
+
+
+
 <a name="v1.3.1"></a>
 ## v1.3.1 (2022-09-26)
 
