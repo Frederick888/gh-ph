@@ -54,7 +54,7 @@ function inject_history() {
     local line
     local rendering=0
     local updating_format=0
-    while read -r line; do
+    while IFS='' read -r line; do
         if [[ "$rendering" -eq 1 ]] && [[ "$line" != *"$GH_PH_HISTORY_FENCE"* ]]; then
             # Placing format fences inside history fences is not allowed
             continue
