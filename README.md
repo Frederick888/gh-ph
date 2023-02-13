@@ -43,7 +43,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 100
+      - run: |
+          git remote set-branches origin '*'
+          git fetch --depth 100
       - uses: Frederick888/gh-ph@v1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
