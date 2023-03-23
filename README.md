@@ -33,7 +33,9 @@ Super duper fantastic feature.
 
 ## GitHub Actions
 
-Add the fences to your pull request templates, then set up a job as below:
+First, visit your repository's Settings -> Actions -> General, and select 'Read and write permissions' in 'Workflow permissions'.
+
+Then add the fences to your pull request templates, and finally set up a job as below:
 
 ```yaml
 jobs:
