@@ -18,7 +18,7 @@ GH_TEMPLATE_CACHE=""
 function is_vim() {
     local gh_ppid
     gh_ppid="$(ps -o ppid= $PPID | tr -d ' ')"
-    [[ "$(ps -o comm= "$gh_ppid")" =~ ^n?vim$ ]]
+    [[ "$(ps -o comm= "$gh_ppid")" =~ ^n?vim$ ]] || [[ "$(ps -o comm= "$gh_ppid")" =~ /n?vim$ ]]
 }
 
 function gh_template() {
