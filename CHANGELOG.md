@@ -1,3 +1,13 @@
+<a name="v1.3.3"></a>
+## v1.3.3 (2023-04-14)
+
+
+#### Bug Fixes
+
+*   Vim detection when ps -o comm= prints full path ([d743ada1](https://github.com/Frederick888/gh-ph/commit/d743ada19be2ccb7411d892f45a474c9315c0f97))
+
+
+
 <a name="v1.3.2"></a>
 ## v1.3.2 (2022-12-12)
 
