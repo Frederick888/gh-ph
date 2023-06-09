@@ -38,6 +38,13 @@ First, visit your repository's Settings -> Actions -> General, and select 'Read 
 Then add the fences to your pull request templates, and finally set up a job as below:
 
 ```yaml
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   gh-ph:
     name: Add commit history to pull request description
