@@ -26,7 +26,10 @@ runs:
   steps:
     - run: |
         git checkout "$GITHUB_BASE_REF"
-        git checkout "$GITHUB_HEAD_REF" || git checkout "${GITHUB_REF/refs\//}"
+        if ! git checkout "$GITHUB_HEAD_REF"; then
+          git checkout "${GITHUB_REF/refs\//}^2"
+          git checkout -b "$GITHUB_HEAD_REF"
+        fi
         printf 'y' | \
           GH_PH_PAGER='cat' \
           GH_PH_DEBUG='${{ inputs.debug }}' \
