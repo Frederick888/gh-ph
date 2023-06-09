@@ -39,3 +39,5 @@ runs:
           GH_PH_HISTORY_FORMAT_GH_TEMPLATE='${{ inputs.gh_template }}' \
           $GITHUB_ACTION_PATH/gh-ph
       shell: bash
+      env:
+        GH_PH_PULL_REQUEST_ID: ${{ github.event.pull_request.number }}

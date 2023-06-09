@@ -12,6 +12,7 @@ fi
 : "${GH_PH_HISTORY_FORMAT_FENCE:="=== GH HISTORY FORMAT FENCE ==="}"
 : "${GH_PH_HISTORY_FORMAT_GH_TEMPLATE:="1"}"
 : "${GH_PH_PAGER:="bat"}"
+: "${GH_PH_PULL_REQUEST_ID:=""}"
 
 GH_TEMPLATE_CACHE=""
 
@@ -26,7 +27,7 @@ function gh_template() {
     if [[ -z "$GH_TEMPLATE_CACHE" ]]; then
         local fields
         fields="$(set -eo pipefail; (gh pr view --json 2>&1 || true) | tail -n+2 | tr -d ' ' | paste -d, -s -)"
-        GH_TEMPLATE_CACHE="$(set -eo pipefail; gh pr view --json "$fields" --template "$format")"
+        GH_TEMPLATE_CACHE="$(set -eo pipefail; gh pr view "$GH_PH_PULL_REQUEST_ID" --json "$fields" --template "$format")"
     fi
     printf '%s' "$GH_TEMPLATE_CACHE"
 }
@@ -96,7 +97,7 @@ function pager() {
     esac
 }
 
-PR_DETAILS="$(set -eo pipefail; gh pr view --json baseRefName,body)"
+PR_DETAILS="$(set -eo pipefail; gh pr view "$GH_PH_PULL_REQUEST_ID" --json baseRefName,body)"
 PR_BASE="$(set -eo pipefail; jq -r '.baseRefName' <<<"$PR_DETAILS")"
 PR_BODY="$(set -eo pipefail; jq -r '.body' <<<"$PR_DETAILS")"
 
@@ -105,11 +106,11 @@ inject_history "$PR_BASE" <<<"$PR_BODY" | pager
 if read -r -n1 -p 'Update pull request body? [y/n] '; then
     printf '\n'
     if [[ "$REPLY" == 'y' ]]; then
-        inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit --body-file -
+        inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
     else
         printf 'Aborted\n'
     fi
 elif is_vim; then
     printf '\nVim detected\n'
-    inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit --body-file -
+    inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
 fi
