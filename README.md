@@ -61,6 +61,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+_Note_: [`GITHUB_TOKEN`](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/) (and [secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow)) does not work on PRs from public forks. Private repositories can consider [sending write tokens to workflows from pull requests](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#enabling-workflows-for-forks-of-private-repositories).
+
 # Configuration
 
 Default history format can be configured via environment variable [`GH_PH_HISTORY_FORMAT`](https://github.com/Frederick888/gh-ph/blob/1a9fe6f74a6067559885246a67f1d1df9366252c/gh-ph#L12) ([`with.format`](https://github.com/Frederick888/gh-ph/blob/1a9fe6f74a6067559885246a67f1d1df9366252c/action.yml#L8-L11) in Actions).
