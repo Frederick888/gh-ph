@@ -39,7 +39,7 @@ Then add the fences to your pull request templates, and finally set up a job as 
 
 ```yaml
 on:
-  pull_request:
+  pull_request_target:
 
 permissions:
   contents: read
@@ -60,8 +60,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-
-_Note_: [`GITHUB_TOKEN`](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/) (and [secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#using-secrets-in-a-workflow)) does not work on PRs from public forks. Private repositories can consider [sending write tokens to workflows from pull requests](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#enabling-workflows-for-forks-of-private-repositories).
 
 # Configuration
 
