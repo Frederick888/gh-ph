@@ -1,3 +1,53 @@
+<a name="v1.4.0"></a>
+## v1.4.0 (2024-06-13)
+
+
+#### Features
+
+*   Temporary workaround for cli/cli#9160 ([8eb0663c](https://github.com/Frederick888/gh-ph/commit/8eb0663c0e8aadc827c88428f56cba2e85b39ec0))
+
+
+
+<a name="v1.3.7"></a>
+## v1.3.7 (2023-11-01)
+
+
+#### Bug Fixes
+
+*   Use gh pr checkout instead of relying on actions/checkout ([17b49448](https://github.com/Frederick888/gh-ph/commit/17b49448caa9ba91af270d76d5f75bba1e53b679))
+
+
+
+<a name="v1.3.6"></a>
+## v1.3.6 (2023-06-09)
+
+
+#### Bug Fixes
+
+*   Use PR ID to call gh-cli in Actions ([7ff460c3](https://github.com/Frederick888/gh-ph/commit/7ff460c31b1e4cafdb3189e5b3b4031eadabcd68))
+
+
+
+<a name="v1.3.5"></a>
+## v1.3.5 (2023-06-09)
+
+
+#### Bug Fixes
+
+*   Fix no current branch error for PRs from forks ([fd0ad189](https://github.com/Frederick888/gh-ph/commit/fd0ad18924ef1a3f8d6676f8179fad50bf720003))
+
+
+
+<a name="v1.3.4"></a>
+## v1.3.4 (2023-06-09)
+
+
+#### Bug Fixes
+
+*   Check out pull/[id]/merge for PRs from forks ([bdef7fca](https://github.com/Frederick888/gh-ph/commit/bdef7fca09257698841fd314efeb8fa0b67bcf01))
+
+
+
 <a name="v1.3.3"></a>
 ## v1.3.3 (2023-04-14)
 
