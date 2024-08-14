@@ -10,6 +10,7 @@
 
 - [`jq`](https://github.com/stedolan/jq)
 - [`bat`](https://github.com/sharkdp/bat)
+- Command UNIX CLI utilities such as `tr`, `grep`, `sed`, etc.
 
 # Usage
 
