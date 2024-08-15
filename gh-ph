@@ -97,20 +97,24 @@ function pager() {
     esac
 }
 
+function unix2dos() {
+    tr -d $'\r' | sed 's/$/\r/'
+}
+
 PR_DETAILS="$(set -eo pipefail; gh pr view "$GH_PH_PULL_REQUEST_ID" --json baseRefName,body)"
 PR_BASE="$(set -eo pipefail; jq -r '.baseRefName' <<<"$PR_DETAILS")"
 PR_BODY="$(set -eo pipefail; jq -r '.body' <<<"$PR_DETAILS")"
 
-inject_history "$PR_BASE" <<<"$PR_BODY" | pager
+inject_history "$PR_BASE" <<<"$PR_BODY" | unix2dos | pager
 
 if read -r -n1 -p 'Update pull request body? [y/n] '; then
     printf '\n'
     if [[ "$REPLY" == 'y' ]]; then
-        inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
+        inject_history "$PR_BASE" <<<"$PR_BODY" | unix2dos | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
     else
         printf 'Aborted\n'
     fi
 elif is_vim; then
     printf '\nVim detected\n'
-    inject_history "$PR_BASE" <<<"$PR_BODY" | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
+    inject_history "$PR_BASE" <<<"$PR_BODY" | unix2dos | gh pr edit "$GH_PH_PULL_REQUEST_ID" --body-file -
 fi
