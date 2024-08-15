@@ -1,3 +1,17 @@
+<a name="v1.4.1"></a>
+## v1.4.1  (2024-08-15)
+
+
+#### Bug Fixes
+
+*   Use CRLF ([a15970da](https://github.com/Frederick888/gh-ph/commit/a15970daaa439ba3d5bf1aaed9fe8489918fb3f8))
+
+#### Reverts
+
+*   "feat: Temporary workaround for cli/cli#9160" ([7d5cf02a](https://github.com/Frederick888/gh-ph/commit/7d5cf02a901d07009e5528e32c146b506f85fc96))
+
+
+
 <a name="v1.4.0"></a>
 ## v1.4.0 (2024-06-13)
 
