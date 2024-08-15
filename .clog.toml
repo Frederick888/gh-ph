@@ -1,2 +1,8 @@
 [clog]
 repository = "https://github.com/Frederick888/gh-ph"
+[sections]
+Features = ["feat"]
+"Bug Fixes" = ["fix"]
+Performance = ["perf"]
+Reverts = ["revert"]
+"Breaking Changes" = ["breaks"]
