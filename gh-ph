@@ -26,7 +26,7 @@ function gh_template() {
     local format="$1"
     if [[ -z "$GH_TEMPLATE_CACHE" ]]; then
         local fields
-        fields="$(set -eo pipefail; (gh pr view --json 2>&1 || true) | tail -n+2 | tr -d ' ' | grep -v stateReason | paste -d, -s -)"
+        fields="$(set -eo pipefail; (gh pr view --json 2>&1 || true) | tail -n+2 | tr -d ' ' | paste -d, -s -)"
         GH_TEMPLATE_CACHE="$(set -eo pipefail; gh pr view "$GH_PH_PULL_REQUEST_ID" --json "$fields" --template "$format")"
     fi
     printf '%s' "$GH_TEMPLATE_CACHE"
