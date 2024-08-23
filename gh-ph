@@ -105,6 +105,10 @@ PR_DETAILS="$(set -eo pipefail; gh pr view "$GH_PH_PULL_REQUEST_ID" --json baseR
 PR_BASE="$(set -eo pipefail; jq -r '.baseRefName' <<<"$PR_DETAILS")"
 PR_BODY="$(set -eo pipefail; jq -r '.body' <<<"$PR_DETAILS")"
 
+if git rev-parse --quiet --verify --abbrev-ref "$PR_BASE@{push}" >/dev/null && git merge-base --is-ancestor "$PR_BASE" "$PR_BASE@{push}"; then
+    PR_BASE="$PR_BASE@{push}"
+fi
+
 inject_history "$PR_BASE" <<<"$PR_BODY" | unix2dos | pager
 
 if read -r -n1 -p 'Update pull request body? [y/n] '; then
