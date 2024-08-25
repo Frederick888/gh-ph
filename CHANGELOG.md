@@ -1,3 +1,13 @@
+<a name="v1.5.0"></a>
+## v1.5.0  (2024-08-25)
+
+
+#### Features
+
+*   Use base@{push} if it's newer than base ([4eeb80bc](https://github.com/Frederick888/gh-ph/commit/4eeb80bce4fcf6e54cadf3d45c24ec655e36f9fa))
+
+
+
 <a name="v1.4.1"></a>
 ## v1.4.1  (2024-08-15)
 
