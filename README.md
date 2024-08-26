@@ -85,3 +85,5 @@ Per template/section formats can be configured using inline format fences. For e
 ```
 
 By default it runs history format through [gh format](https://cli.github.com/manual/gh_help_formatting) then [Git pretty formats](https://git-scm.com/docs/pretty-formats).
+
+Hello, world!
